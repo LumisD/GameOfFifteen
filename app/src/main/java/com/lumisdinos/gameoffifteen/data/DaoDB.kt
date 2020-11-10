@@ -25,7 +25,7 @@ interface DaoDB {
     fun deleteGame(gameId: Int)
 
     @Query("DELETE FROM game")
-    fun deleteAllGames(): Int
+    fun deleteAllGames()
 
     @Query("SELECT MAX(id) FROM game")
     fun getMaxIdGame(): Int
