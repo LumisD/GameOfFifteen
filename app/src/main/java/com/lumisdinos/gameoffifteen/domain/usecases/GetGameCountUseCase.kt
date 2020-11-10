@@ -6,7 +6,5 @@ import javax.inject.Inject
 class GetGameCountUseCase @Inject constructor(
     private val repository: GameRepository
 ) {
-    suspend fun executeUseCase(): Int {
-        return repository.getGameCount()
-    }
+    suspend fun executeUseCase(): Int = repository.getGameCount()
 }

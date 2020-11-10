@@ -7,7 +7,5 @@ import javax.inject.Inject
 class GetAllGamesUseCase @Inject constructor(
     private val repository: GameRepository
 ) {
-    suspend fun executeUseCase(): List<GameModel> {
-        return repository.getAllGames()
-    }
+    suspend fun executeUseCase(): List<GameModel> = repository.getAllGames()
 }

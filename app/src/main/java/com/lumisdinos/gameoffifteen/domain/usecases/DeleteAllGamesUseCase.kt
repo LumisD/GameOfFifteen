@@ -6,7 +6,5 @@ import javax.inject.Inject
 class DeleteAllGamesUseCase @Inject constructor(
     private val repository: GameRepository
 ) {
-    suspend fun executeUseCase() {
-        return repository.deleteAllGames()
-    }
+    suspend fun executeUseCase() = repository.deleteAllGames()
 }

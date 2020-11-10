@@ -7,7 +7,5 @@ import javax.inject.Inject
 class InsertGameUseCase @Inject constructor(
     private val repository: GameRepository
 ) {
-    suspend fun executeUseCase(game: GameModel) {
-        repository.insertGame(game)
-    }
+    suspend fun executeUseCase(game: GameModel) = repository.insertGame(game)
 }

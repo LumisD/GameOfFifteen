@@ -6,7 +6,5 @@ import javax.inject.Inject
 class GetMaxIdGameUseCase @Inject constructor(
     private val repository: GameRepository
 ) {
-    suspend fun executeUseCase(): Int {
-        return repository.getMaxId()
-    }
+    suspend fun executeUseCase(): Int = repository.getMaxId()
 }
