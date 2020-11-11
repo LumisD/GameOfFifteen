@@ -12,7 +12,8 @@ import javax.inject.Singleton
 @Component(
     modules = [
         AndroidSupportInjectionModule::class,
-        PresentationModule::class
+        ActivitiesBuildersModule::class,
+        ViewModelModule::class
     ]
 )
 interface ApplicationComponent : AndroidInjector<GameOfFifteenApp> {
