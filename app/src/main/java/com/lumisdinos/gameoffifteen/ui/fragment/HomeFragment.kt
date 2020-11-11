@@ -16,7 +16,7 @@ class HomeFragment : DaggerFragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private lateinit var viewBinding: FragmentHomeBinding
+    private var viewBinding: FragmentHomeBinding? = null
     private val viewModel by viewModels<HomeViewModel> { viewModelFactory }
 
     override fun onCreateView(
@@ -25,16 +25,22 @@ class HomeFragment : DaggerFragment() {
         savedInstanceState: Bundle?
     ): View? {
         viewBinding = FragmentHomeBinding.inflate(inflater, container, false)
-        val view = viewBinding.root
+        val view = viewBinding?.root
         setHasOptionsMenu(true)
-        viewBinding.root.post {
+        viewBinding?.root?.post {
             viewModel.initialLoadCells(
-                view.width,
+                view!!.width,
                 resources.getDimensionPixelSize(R.dimen.game_grid_margin),
                 resources.getDimensionPixelSize(R.dimen.cell_margin)
             )
         }
         return view
+    }
+
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        viewBinding = null
     }
 
 
