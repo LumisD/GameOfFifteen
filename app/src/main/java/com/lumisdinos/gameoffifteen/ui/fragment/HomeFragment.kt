@@ -8,12 +8,14 @@ import com.lumisdinos.gameoffifteen.R
 import com.lumisdinos.gameoffifteen.common.Event
 import com.lumisdinos.gameoffifteen.databinding.FragmentHomeBinding
 import com.lumisdinos.gameoffifteen.presentation.HomeViewModel
+import com.lumisdinos.gameoffifteen.ui.dialog.DialogListener
+import com.lumisdinos.gameoffifteen.ui.dialog.getAlertDialog
 import com.lumisdinos.gameoffifteen.ui.view.DragUtil
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
 
-class HomeFragment : DaggerFragment() {
+class HomeFragment : DaggerFragment(), DialogListener {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -53,6 +55,7 @@ class HomeFragment : DaggerFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel.setCells.observe(viewLifecycleOwner, { replaceCellsInLLayout(it) })
+        viewModel.showAlertDialog.observe(viewLifecycleOwner, { showAlertDialog(it) })
     }
 
 
@@ -73,6 +76,58 @@ class HomeFragment : DaggerFragment() {
         }
     }
 
+
+    private fun showAlertDialog(event: Event<String>) {
+        event.getContentIfNotHandled()?.let {
+            val title: String
+            val message: String
+            val ok = getString(R.string.ok)
+
+            when (it) {
+                ACTION_CONGRATULATIONS -> {
+                    title = getString(R.string.winner)
+                    message = getString(R.string.congratulations_you_solved_it)
+                }
+                else -> {//ACTION_UNSOLVABLE
+                    title = getString(R.string.finish)
+                    message = getString(R.string.sorry_unsolvable)
+                }
+            }
+
+            getAlertDialog(
+                requireContext(),
+                it,//action
+                this,
+                title,
+                message,
+                ok
+            ).show()
+        }
+    }
+
+
+    //  -- DialogListener --
+
+    override fun onPositiveDialogClick(result: List<String>) {
+        when (result[0]) {
+            ACTION_CONGRATULATIONS -> {
+            }
+            ACTION_UNSOLVABLE -> {
+            }
+        }
+    }
+
+    override fun onNegativeDialogClick(result: List<String>) {
+    }
+
+    override fun onNeutralDialogClick(result: List<String>) {
+    }
+
+
+    companion object {
+        const val ACTION_CONGRATULATIONS = "100"
+        const val ACTION_UNSOLVABLE = "101"
+    }
 
 
 }

@@ -19,7 +19,9 @@
 
     <!--    Dialog-->
     <string name="winner">Ganador</string>
+    <string name="finish">Final</string>
     <string name="congratulations_you_solved_it">¡Felicidades! ¡Lo resolviste!</string>
+    <string name="sorry_unsolvable">Lo siento, este rompecabezas es imposible de resolver :(</string>
     <string name="next">Next!</string>
 
     <string name="include_str">Incluir</string>

@@ -21,7 +21,9 @@
 
     <!--    Dialog-->
     <string name="winner">Winner</string>
+    <string name="finish">Finish</string>
     <string name="congratulations_you_solved_it">Congratulations! You solved it!</string>
+    <string name="sorry_unsolvable">Sorry, this puzzle impossible to solve :(</string>
     <string name="next">Next!</string>
 
     <string name="include_str">Include</string>

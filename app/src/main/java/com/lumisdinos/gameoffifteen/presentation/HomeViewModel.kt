@@ -9,6 +9,8 @@ import com.lumisdinos.gameoffifteen.common.Event
 import com.lumisdinos.gameoffifteen.data.Constants.FOUR_CELLS_IN_ROW
 import com.lumisdinos.gameoffifteen.data.Constants.GAME_15
 import com.lumisdinos.gameoffifteen.data.Constants.TWO_SIDES
+import com.lumisdinos.gameoffifteen.ui.fragment.HomeFragment.Companion.ACTION_CONGRATULATIONS
+import com.lumisdinos.gameoffifteen.ui.fragment.HomeFragment.Companion.ACTION_UNSOLVABLE
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -17,6 +19,9 @@ import javax.inject.Inject
 
 class HomeViewModel @Inject constructor(
 ) : ViewModel() {
+
+    private val _showAlertDialog = MutableLiveData<Event<String>>()
+    val showAlertDialog: LiveData<Event<String>> = _showAlertDialog
 
     private val _setCells = MutableLiveData<Event<List<Int>>>()
     val setCells: LiveData<Event<List<Int>>> = _setCells
@@ -52,23 +57,26 @@ class HomeViewModel @Inject constructor(
         CoroutineScope(Dispatchers.Main).launch {
             withContext(Dispatchers.IO) {
                 digits[cellIndex] = digits[zeroIndex].also { digits[zeroIndex] = digits[cellIndex] }
-                var isSolved = true
-                var isFirst13Solved = false
-                for (i in 0 .. currentGameDimention - 1) {
-                    if (i + 1 != digits[i]) {
-                        isSolved = false
-                        if (i > currentGameDimention - 3) {
-                            isFirst13Solved = true
+
+                var firstUnordered = 0
+                run lit@{
+                    digits.forEachIndexed { index, number ->
+                        if (index + 1 != number) {
+                            firstUnordered = index
+                            return@lit
                         }
-                        break
                     }
                 }
-                //todo: if isSolved - show dialog with congratulations
+
+                if (firstUnordered == currentGameDimention) {
+                    _showAlertDialog.postValue(Event(ACTION_CONGRATULATIONS))
+                } else if (firstUnordered == currentGameDimention - 2) {
+                    if (digits[currentGameDimention - 2] == currentGameDimention) {
+                        _showAlertDialog.postValue(Event(ACTION_UNSOLVABLE))
+                    }
+                }
             }
         }
     }
-
-
-
 
 }
