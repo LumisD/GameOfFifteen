@@ -7,6 +7,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.lumisdinos.gameoffifteen.R
 import com.lumisdinos.gameoffifteen.common.Event
 import com.lumisdinos.gameoffifteen.databinding.FragmentHomeBinding
+import com.lumisdinos.gameoffifteen.domain.model.GameState
+import com.lumisdinos.gameoffifteen.domain.repos.PuzzleLogicRepository.Companion.ACTION_CONGRATULATIONS
+import com.lumisdinos.gameoffifteen.domain.repos.PuzzleLogicRepository.Companion.ACTION_UNSOLVABLE
 import com.lumisdinos.gameoffifteen.presentation.HomeViewModel
 import com.lumisdinos.gameoffifteen.ui.dialog.DialogListener
 import com.lumisdinos.gameoffifteen.ui.dialog.getAlertDialog
@@ -51,14 +54,19 @@ class HomeFragment : DaggerFragment(), DialogListener {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel.setCells.observe(viewLifecycleOwner, { replaceCellsInLLayout(it) })
-        viewModel.showAlertDialog.observe(viewLifecycleOwner, { showAlertDialog(it) })
+        viewModel.gameState.observe(viewLifecycleOwner, { render(it) })
     }
 
 
     override fun onDestroyView() {
         super.onDestroyView()
         viewBinding = null
+    }
+
+
+    private fun render(gameState: GameState) {
+        replaceCellsInLLayout(gameState.cells)
+        showAlertDialog(gameState.showAlertDialog)
     }
 
 
@@ -98,9 +106,12 @@ class HomeFragment : DaggerFragment(), DialogListener {
                     title = getString(R.string.winner)
                     message = getString(R.string.congratulations_you_solved_it)
                 }
-                else -> {//ACTION_UNSOLVABLE
+                ACTION_UNSOLVABLE -> {
                     title = getString(R.string.finish)
                     message = getString(R.string.sorry_unsolvable)
+                }
+                else -> {
+                    return
                 }
             }
 
@@ -132,12 +143,5 @@ class HomeFragment : DaggerFragment(), DialogListener {
 
     override fun onNeutralDialogClick(result: List<String>) {
     }
-
-
-    companion object {
-        const val ACTION_CONGRATULATIONS = "100"
-        const val ACTION_UNSOLVABLE = "101"
-    }
-
 
 }
