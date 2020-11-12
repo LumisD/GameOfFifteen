@@ -4,8 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.lumisdinos.gameoffifteen.common.AppConfig.cell15Size
+import com.lumisdinos.gameoffifteen.common.AppConfig.currentGameDimention
 import com.lumisdinos.gameoffifteen.common.Event
 import com.lumisdinos.gameoffifteen.data.Constants.FOUR_CELLS_IN_ROW
+import com.lumisdinos.gameoffifteen.data.Constants.GAME_15
 import com.lumisdinos.gameoffifteen.data.Constants.TWO_SIDES
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -24,8 +26,9 @@ class HomeViewModel @Inject constructor(
     fun initialLoadCells(frWidth: Int, gridMargin: Int, cellMargin: Int) {
         CoroutineScope(Dispatchers.Main).launch {
             withContext(Dispatchers.IO) {
+                currentGameDimention = GAME_15
                 setCellSizInConfig(frWidth, gridMargin, cellMargin)
-                generateCells()
+                generateCells(currentGameDimention)
                 _setCells.postValue(Event(digits))
             }
         }
@@ -38,16 +41,16 @@ class HomeViewModel @Inject constructor(
     }
 
 
-    private fun generateCells() {
+    private fun generateCells(dimention: Int) {
         digits.clear()
-        while (digits.size < 16) {
-            val digit = (0..15).random()
+        while (digits.size < dimention + 1) {
+            val digit = (0..dimention).random()
             if (digits.contains(digit)) {
                 var isAdded = false
                 var nextDigit = digit
                 while (!isAdded) {
                     nextDigit += 1
-                    if (nextDigit > 15) {
+                    if (nextDigit > dimention) {
                         nextDigit = 0
                     }
                     if (!digits.contains(nextDigit)) {
@@ -68,10 +71,10 @@ class HomeViewModel @Inject constructor(
                 digits[cellIndex] = digits[zeroIndex].also { digits[zeroIndex] = digits[cellIndex] }
                 var isSolved = true
                 var isFirst13Solved = false
-                for (i in 0 .. 14) {
+                for (i in 0 .. currentGameDimention - 1) {
                     if (i + 1 != digits[i]) {
                         isSolved = false
-                        if (i > 12) {
+                        if (i > currentGameDimention - 3) {
                             isFirst13Solved = true
                         }
                         break
