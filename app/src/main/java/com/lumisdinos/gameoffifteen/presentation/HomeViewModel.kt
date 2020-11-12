@@ -43,25 +43,8 @@ class HomeViewModel @Inject constructor(
 
     private fun generateCells(dimention: Int) {
         digits.clear()
-        while (digits.size < dimention + 1) {
-            val digit = (0..dimention).random()
-            if (digits.contains(digit)) {
-                var isAdded = false
-                var nextDigit = digit
-                while (!isAdded) {
-                    nextDigit += 1
-                    if (nextDigit > dimention) {
-                        nextDigit = 0
-                    }
-                    if (!digits.contains(nextDigit)) {
-                        digits.add(nextDigit)
-                        isAdded = true
-                    }
-                }
-            } else {
-                digits.add(digit)
-            }
-        }
+        val cells = (0..dimention).shuffled().toList()
+        digits.addAll(cells)
     }
 
 

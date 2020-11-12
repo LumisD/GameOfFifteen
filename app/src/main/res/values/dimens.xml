@@ -24,22 +24,16 @@
 <!--    table_cell_margin is used for program calculations-->
     <!--    table_cell_width_step is used for up/down cell width-->
 
-    <!--    Button width/height-->
+    <!--    width/height-->
     <dimen name="button_height">40dp</dimen>
+    <dimen name="dice_width">130dp</dimen>
 
     <!--    Text sizes-->
     <dimen name="dialog_tips_text_size">15sp</dimen>
     <dimen name="table_cell_text_size">24sp</dimen>
     <dimen name="spinner_text_size">22sp</dimen>
-    <!--    table_cell_width_step is used for up/down cell width-->
-    <dimen name="button_text_size">14sp</dimen>
+    <dimen name="cell_text_size">20sp</dimen>
     <dimen name="dialog_title_text_size">18sp</dimen>
-
-    <!--    List item heights-->
-    <dimen name="list_item_smaller_1_height">55dp</dimen>
-
-    <dimen name="dice_width">130dp</dimen>
-
 
 
 </resources>
