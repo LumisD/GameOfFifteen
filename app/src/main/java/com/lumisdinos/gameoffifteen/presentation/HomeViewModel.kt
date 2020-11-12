@@ -33,7 +33,17 @@ class HomeViewModel @Inject constructor(
             withContext(Dispatchers.IO) {
                 currentGameDimention = GAME_15
                 setCellSizInConfig(frWidth, gridMargin, cellMargin)
-                generateCells(currentGameDimention)
+                generateCells()
+                _setCells.postValue(Event(digits))
+            }
+        }
+    }
+
+
+    fun reloadCells() {
+        CoroutineScope(Dispatchers.Main).launch {
+            withContext(Dispatchers.IO) {
+                generateCells()
                 _setCells.postValue(Event(digits))
             }
         }
@@ -46,9 +56,9 @@ class HomeViewModel @Inject constructor(
     }
 
 
-    private fun generateCells(dimention: Int) {
+    private fun generateCells() {
         digits.clear()
-        val cells = (0..dimention).shuffled().toList()
+        val cells = (0..currentGameDimention).shuffled().toList()
         digits.addAll(cells)
     }
 

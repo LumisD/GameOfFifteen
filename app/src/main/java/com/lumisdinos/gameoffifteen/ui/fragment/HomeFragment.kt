@@ -39,14 +39,11 @@ class HomeFragment : DaggerFragment(), DialogListener {
     }
 
 
-    private fun initCellLoadWhenViewIsDrawn(view: View?) {
-        view?.let {
-            it.post {
-                viewModel.initialLoadCells(
-                    it.width,
-                    resources.getDimensionPixelSize(R.dimen.game_grid_margin),
-                    resources.getDimensionPixelSize(R.dimen.cell_margin)
-                )
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewBinding?.let {
+            it.diceImage.setOnClickListener {
+                viewModel.reloadCells()
             }
         }
     }
@@ -62,6 +59,19 @@ class HomeFragment : DaggerFragment(), DialogListener {
     override fun onDestroyView() {
         super.onDestroyView()
         viewBinding = null
+    }
+
+
+    private fun initCellLoadWhenViewIsDrawn(view: View?) {
+        view?.let {
+            it.post {
+                viewModel.initialLoadCells(
+                    it.width,
+                    resources.getDimensionPixelSize(R.dimen.game_grid_margin),
+                    resources.getDimensionPixelSize(R.dimen.cell_margin)
+                )
+            }
+        }
     }
 
 
