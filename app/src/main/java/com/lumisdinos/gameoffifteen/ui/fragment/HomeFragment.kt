@@ -27,13 +27,7 @@ class HomeFragment : DaggerFragment() {
         viewBinding = FragmentHomeBinding.inflate(inflater, container, false)
         val view = viewBinding?.root
         setHasOptionsMenu(true)
-        viewBinding?.root?.post {
-            viewModel.initialLoadCells(
-                view!!.width,
-                resources.getDimensionPixelSize(R.dimen.game_grid_margin),
-                resources.getDimensionPixelSize(R.dimen.cell_margin)
-            )
-        }
+        initCellLoadWhenViewIsDrawn(view)
         return view
     }
 
@@ -42,6 +36,20 @@ class HomeFragment : DaggerFragment() {
         super.onDestroyView()
         viewBinding = null
     }
+
+
+    private fun initCellLoadWhenViewIsDrawn(view: View?) {
+        view?.let {
+            it.post {
+                viewModel.initialLoadCells(
+                    it.width,
+                    resources.getDimensionPixelSize(R.dimen.game_grid_margin),
+                    resources.getDimensionPixelSize(R.dimen.cell_margin)
+                )
+            }
+        }
+    }
+
 
 
 }
