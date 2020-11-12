@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/cell_margin"
+    android:background="@drawable/border_cell"
+    android:foreground="@drawable/ripple"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:drawablePadding="0dp"
+    android:textSize="@dimen/table_cell_text_size">
+
+</TextView>

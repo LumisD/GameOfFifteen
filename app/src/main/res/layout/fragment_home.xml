@@ -5,5 +5,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <RelativeLayout
+        android:id="@+id/squareRL"
+        android:layout_width="match_parent"
+        android:background="@color/bg_yellow_faint"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="H,1:1"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/dice_image"
+        android:layout_width="@dimen/dice_width"
+        android:layout_height="@dimen/dice_width"
+        android:layout_marginTop="@dimen/space_normal"
+        android:layout_gravity="center_horizontal"
+        android:onClick="@{() -> viewModel.reloadCells()}"
+        app:srcCompat="@drawable/dice_1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/squareRL"
+        tools:ignore="ContentDescription" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
