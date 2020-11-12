@@ -97,32 +97,9 @@ class HomeFragment : DaggerFragment(), DialogListener {
 
     private fun showAlertDialog(event: Event<String>) {
         event.getContentIfNotHandled()?.let {
-            val title: String
-            val message: String
-            val ok = getString(R.string.ok)
-
-            when (it) {
-                ACTION_CONGRATULATIONS -> {
-                    title = getString(R.string.winner)
-                    message = getString(R.string.congratulations_you_solved_it)
-                }
-                ACTION_UNSOLVABLE -> {
-                    title = getString(R.string.finish)
-                    message = getString(R.string.sorry_unsolvable)
-                }
-                else -> {
-                    return
-                }
+            if (it.isNotEmpty()) {
+                getAlertDialog(requireContext(), it, this).show()
             }
-
-            getAlertDialog(
-                requireContext(),
-                it,//action
-                this,
-                title,
-                message,
-                ok
-            ).show()
         }
     }
 

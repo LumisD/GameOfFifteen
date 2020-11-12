@@ -2,39 +2,41 @@ package com.lumisdinos.gameoffifteen.ui.dialog
 
 import android.app.AlertDialog
 import android.content.Context
+import com.lumisdinos.gameoffifteen.R
+import com.lumisdinos.gameoffifteen.domain.repos.PuzzleLogicRepository.Companion.ACTION_CONGRATULATIONS
 
-fun getAlertDialogFull(
+fun getAlertDialog(
     context: Context,
     action: String,
-    additional: String,
-    listener: DialogListener,
-    title: String,
-    message: String,
-    btnPositive: String,
-    btnNegative: String,
-    btnNeutral: String
+    listener: DialogListener
 ): AlertDialog {
+
+    val title: String
+    val message: String
+    when (action) {
+
+        ACTION_CONGRATULATIONS -> {
+            title = context.getString(R.string.winner)
+            message = context.getString(R.string.congratulations_you_solved_it)
+        }
+        else -> {//ACTION_UNSOLVABLE
+            title = context.getString(R.string.finish)
+            message = context.getString(R.string.sorry_unsolvable)
+        }
+
+    }
 
     val builder = AlertDialog.Builder(context)
     with(builder)
     {
         setTitle(title)
         setMessage(message)
-        if (!btnPositive.isEmpty()) {
-            setPositiveButton(btnPositive) { _, id ->
-                listener.onPositiveDialogClick(
-                    listOf(
-                        action,
-                        additional
-                    )
+        setPositiveButton(context.getString(R.string.ok)) { _, id ->
+            listener.onPositiveDialogClick(
+                listOf(
+                    action
                 )
-            }
-        }
-        if (!btnNegative.isEmpty()) {
-            setNegativeButton(btnNegative) { _, id -> listener.onNegativeDialogClick(listOf(action)) }
-        }
-        if (!btnNeutral.isEmpty()) {
-            setNeutralButton(btnNeutral) { _, id -> listener.onNeutralDialogClick(listOf(action)) }
+            )
         }
     }
     val dialog = builder.create()
@@ -42,60 +44,3 @@ fun getAlertDialogFull(
     dialog.setCanceledOnTouchOutside(false)
     return dialog
 }
-
-fun getAlertDialog(
-    context: Context,
-    action: String,
-    listener: DialogListener,
-    title: String,
-    message: String,
-    btnPositive: String,
-    btnNeutral: String
-): AlertDialog {
-    return getAlertDialogFull(
-        context,
-        action,
-        "",
-        listener,
-        title,
-        message,
-        btnPositive,
-        "",
-        btnNeutral
-    )
-}
-
-fun getAlertDialog(
-    context: Context,
-    action: String,
-    additional: String,
-    listener: DialogListener,
-    title: String,
-    message: String,
-    btnPositive: String,
-    btnNeutral: String
-): AlertDialog {
-    return getAlertDialogFull(
-        context,
-        action,
-        additional,
-        listener,
-        title,
-        message,
-        btnPositive,
-        "",
-        btnNeutral
-    )
-}
-
-fun getAlertDialog(
-    context: Context,
-    action: String,
-    listener: DialogListener,
-    title: String,
-    message: String,
-    btnPositive: String
-): AlertDialog {
-    return getAlertDialogFull(context, action, "", listener, title, message, btnPositive, "", "")
-}
-
