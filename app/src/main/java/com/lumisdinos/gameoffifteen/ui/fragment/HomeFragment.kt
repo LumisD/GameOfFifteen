@@ -72,8 +72,8 @@ class HomeFragment : DaggerFragment() {
             it.post {
                 viewModel.initialLoadCells(
                     it.width,
-                    resources.getDimensionPixelSize(R.dimen.game_grid_margin),
-                    resources.getDimensionPixelSize(R.dimen.cell_margin)
+                    resources.getDimensionPixelSize(R.dimen.space_small),
+                    resources.getDimensionPixelSize(R.dimen.space_extra_xxsmall)
                 )
             }
         }
@@ -85,8 +85,8 @@ class HomeFragment : DaggerFragment() {
             dragUtil.insertCellsInLLayout(
                 it, viewBinding?.squareRL, viewModel::swapCellWithEmpty,
                 layoutInflater,
-                resources.getDimensionPixelSize(R.dimen.game_grid_margin),
-                resources.getDimensionPixelSize(R.dimen.cell_margin)
+                resources.getDimensionPixelSize(R.dimen.space_small),
+                resources.getDimensionPixelSize(R.dimen.space_extra_xxsmall)
             )
         }
     }
