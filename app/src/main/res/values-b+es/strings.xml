@@ -4,9 +4,8 @@
     <string name="nav_header_subtitle">Juego de quince</string>
     <string name="nav_header_desc">Encabezado de navegación</string>
 
-    <!-- Labels -->
-
     <string name="ok">OK</string>
+    <string name="cancel">CANCELAR</string>
 
     <!--    Menu-->
     <string name="action_settings">Configuraciones</string>

@@ -6,9 +6,8 @@
     <string name="nav_header_subtitle">GameOfFifteen</string>
     <string name="nav_header_desc">Navigation header</string>
 
-    <!-- Labels -->
-
     <string name="ok">OK</string>
+    <string name="cancel">CANCEL</string>
 
     <!--    Menu-->
     <string name="action_settings">Settings</string>

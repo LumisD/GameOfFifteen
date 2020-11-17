@@ -8,17 +8,14 @@ import com.lumisdinos.gameoffifteen.R
 import com.lumisdinos.gameoffifteen.common.Event
 import com.lumisdinos.gameoffifteen.databinding.FragmentHomeBinding
 import com.lumisdinos.gameoffifteen.domain.model.GameState
-import com.lumisdinos.gameoffifteen.domain.repos.PuzzleLogicRepository.Companion.ACTION_CONGRATULATIONS
-import com.lumisdinos.gameoffifteen.domain.repos.PuzzleLogicRepository.Companion.ACTION_UNSOLVABLE
 import com.lumisdinos.gameoffifteen.presentation.HomeViewModel
-import com.lumisdinos.gameoffifteen.ui.dialog.DialogListener
-import com.lumisdinos.gameoffifteen.ui.dialog.getAlertDialog
+import com.lumisdinos.gameoffifteen.ui.dialog.showMaterialAlertDialog
 import com.lumisdinos.gameoffifteen.ui.view.DragUtil
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
 
-class HomeFragment : DaggerFragment(), DialogListener {
+class HomeFragment : DaggerFragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -96,29 +93,11 @@ class HomeFragment : DaggerFragment(), DialogListener {
 
 
     private fun showAlertDialog(event: Event<String>) {
-        event.getContentIfNotHandled()?.let {
-            if (it.isNotEmpty()) {
-                getAlertDialog(requireContext(), it, this).show()
+        event.getContentIfNotHandled()?.let { action ->
+            if (action.isNotEmpty()) {
+                context?.let { cont -> showMaterialAlertDialog(cont, action) }
             }
         }
-    }
-
-
-    //  -- DialogListener --
-
-    override fun onPositiveDialogClick(result: List<String>) {
-        when (result[0]) {
-            ACTION_CONGRATULATIONS -> {
-            }
-            ACTION_UNSOLVABLE -> {
-            }
-        }
-    }
-
-    override fun onNegativeDialogClick(result: List<String>) {
-    }
-
-    override fun onNeutralDialogClick(result: List<String>) {
     }
 
 }
