@@ -6,8 +6,10 @@ import android.content.SharedPreferences
 import androidx.room.Room
 import com.lumisdinos.gameoffifteen.data.Database
 import com.lumisdinos.gameoffifteen.data.GameRepositoryImpl
+import com.lumisdinos.gameoffifteen.data.GameStateRepositoryImpl
 import com.lumisdinos.gameoffifteen.data.PuzzleLogicRepositoryImpl
 import com.lumisdinos.gameoffifteen.domain.repos.GameRepository
+import com.lumisdinos.gameoffifteen.domain.repos.GameStateRepository
 import com.lumisdinos.gameoffifteen.domain.repos.PuzzleLogicRepository
 import dagger.Binds
 import dagger.Module
@@ -49,6 +51,9 @@ abstract class ApplicationModuleBinds {
 
     @Binds
     abstract fun bindGameRepository(repository: GameRepositoryImpl): GameRepository
+
+    @Binds
+    abstract fun bindGameStateRepository(repository: GameStateRepositoryImpl): GameStateRepository
 
     @Binds
     abstract fun bindPuzzleLogicRepository(repository: PuzzleLogicRepositoryImpl): PuzzleLogicRepository

@@ -2,9 +2,25 @@ package com.lumisdinos.gameoffifteen.data
 
 import androidx.room.*
 import com.lumisdinos.gameoffifteen.data.model.GameEntity
+import com.lumisdinos.gameoffifteen.data.model.GameStateEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface DaoDB {
+
+    //GameState
+
+    @Query("SELECT * FROM game_state")
+    fun getGameState(): Flow<GameStateEntity>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertGameState(game: GameStateEntity)
+
+    @Query("DELETE FROM game_state")
+    fun deleteAllGameStates()
+
+
+    //Game
 
     @Query("SELECT * FROM game")
     fun getAllGames(): List<GameEntity>

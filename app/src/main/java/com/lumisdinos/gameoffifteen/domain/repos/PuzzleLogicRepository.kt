@@ -1,11 +1,11 @@
 package com.lumisdinos.gameoffifteen.domain.repos
 
-import androidx.lifecycle.MutableLiveData
-import com.lumisdinos.gameoffifteen.domain.model.GameState
+import com.lumisdinos.gameoffifteen.domain.model.GameStateModel
+import kotlinx.coroutines.flow.Flow
 
 interface PuzzleLogicRepository {
 
-    var gameStateLive: MutableLiveData<GameState>
+    fun getGameState(): Flow<GameStateModel>
 
     fun initialLoadCells(frWidth: Int, gridMargin: Int, cellMargin: Int)
 

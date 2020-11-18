@@ -32,6 +32,11 @@ fun convertString2IntList(listAsString: String): MutableList<Int> {
 }
 
 
+fun convertIntList2String(list: List<Int>): String {
+    return list.joinToString(",").trim()
+}
+
+
 fun isClickedSingle(): Boolean {
     return isAlreadyClick(LONG_DELAY)
 }

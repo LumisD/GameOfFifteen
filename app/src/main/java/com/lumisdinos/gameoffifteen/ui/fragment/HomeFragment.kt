@@ -7,11 +7,12 @@ import androidx.lifecycle.ViewModelProvider
 import com.lumisdinos.gameoffifteen.R
 import com.lumisdinos.gameoffifteen.common.Event
 import com.lumisdinos.gameoffifteen.databinding.FragmentHomeBinding
-import com.lumisdinos.gameoffifteen.domain.model.GameState
+import com.lumisdinos.gameoffifteen.domain.model.GameStateModel
 import com.lumisdinos.gameoffifteen.presentation.HomeViewModel
 import com.lumisdinos.gameoffifteen.ui.dialog.showMaterialAlertDialog
 import com.lumisdinos.gameoffifteen.ui.view.DragUtil
 import dagger.android.support.DaggerFragment
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 
 
@@ -49,6 +50,7 @@ class HomeFragment : DaggerFragment() {
     }
 
 
+    @ExperimentalCoroutinesApi
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel.gameState.observe(viewLifecycleOwner, { render(it) })
@@ -61,7 +63,7 @@ class HomeFragment : DaggerFragment() {
     }
 
 
-    private fun render(gameState: GameState) {
+    private fun render(gameState: GameStateModel) {
         replaceCellsInLLayout(gameState.cells)
         showAlertDialog(gameState.showAlertDialog)
     }

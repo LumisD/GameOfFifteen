@@ -1,33 +1,34 @@
 package com.lumisdinos.gameoffifteen.data
 
-import androidx.lifecycle.MutableLiveData
 import com.lumisdinos.gameoffifteen.common.AppConfig.cell15Size
 import com.lumisdinos.gameoffifteen.common.AppConfig.currentGameDimention
 import com.lumisdinos.gameoffifteen.common.Event
 import com.lumisdinos.gameoffifteen.data.Constants.GAME_15
-import com.lumisdinos.gameoffifteen.domain.model.GameState
+import com.lumisdinos.gameoffifteen.domain.model.GameStateModel
 import com.lumisdinos.gameoffifteen.domain.repos.GameRepository
+import com.lumisdinos.gameoffifteen.domain.repos.GameStateRepository
 import com.lumisdinos.gameoffifteen.domain.repos.PuzzleLogicRepository
 import com.lumisdinos.gameoffifteen.domain.repos.PuzzleLogicRepository.Companion.ACTION_CONGRATULATIONS
 import com.lumisdinos.gameoffifteen.domain.repos.PuzzleLogicRepository.Companion.ACTION_UNSOLVABLE
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class PuzzleLogicRepositoryImpl @Inject constructor(
-    private val gameRepository: GameRepository
+    private val gameRepository: GameRepository,
+    private val gameStateRepository: GameStateRepository
 ) : PuzzleLogicRepository {
 
-    override var gameStateLive = MutableLiveData<GameState>()
-    var gameState: GameState? = null
+    var gameState = GameStateModel()
     private val digits = mutableListOf<Int>()
 
 
-    private fun currentGameState(): GameState {
-        if (gameState == null) gameState = GameState()
-        return gameState!!
+    override fun getGameState(): Flow<GameStateModel> {
+        val state = gameStateRepository.getGameState()
+        return state
     }
 
 
@@ -41,6 +42,7 @@ class PuzzleLogicRepositoryImpl @Inject constructor(
         }
     }
 
+
     override fun reloadCells() {
         CoroutineScope(Dispatchers.Main).launch {
             withContext(Dispatchers.IO) {
@@ -48,6 +50,7 @@ class PuzzleLogicRepositoryImpl @Inject constructor(
             }
         }
     }
+
 
     override fun swapCellWithEmpty(cellIndex: Int, zeroIndex: Int) {
         CoroutineScope(Dispatchers.Main).launch {
@@ -79,6 +82,7 @@ class PuzzleLogicRepositoryImpl @Inject constructor(
     private fun generateCells() {
         digits.clear()
         val cells = (0..currentGameDimention).shuffled().toList()
+        //val cells = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 0, 14, 15)
         digits.addAll(cells)
         setStateCells(digits)
     }
@@ -91,13 +95,13 @@ class PuzzleLogicRepositoryImpl @Inject constructor(
 
 
     private fun setStateCells(cells: List<Int>) {
-        gameState = currentGameState().copy(cells = Event(cells))
-        gameStateLive.postValue(gameState)
+        gameState = gameState.copy(cells = Event(cells))
+        gameStateRepository.insertGameState(gameState)
     }
 
 
     private fun setStateDialog(action: String) {
-        gameState = currentGameState().copy(showAlertDialog = Event(action))
-        gameStateLive.postValue(gameState)
+        gameState = gameState.copy(showAlertDialog = Event(action))
+        gameStateRepository.insertGameState(gameState)
     }
 }

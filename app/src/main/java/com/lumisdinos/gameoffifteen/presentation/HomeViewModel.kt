@@ -2,15 +2,25 @@ package com.lumisdinos.gameoffifteen.presentation
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.lumisdinos.gameoffifteen.domain.model.GameState
+import androidx.lifecycle.asLiveData
+import com.lumisdinos.gameoffifteen.domain.model.GameStateModel
 import com.lumisdinos.gameoffifteen.domain.repos.PuzzleLogicRepository
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.catch
+import timber.log.Timber
 import javax.inject.Inject
 
 class HomeViewModel @Inject constructor(
     private val logicRepo: PuzzleLogicRepository
 ) : ViewModel() {
 
-    val gameState: LiveData<GameState> = logicRepo.gameStateLive
+    @ExperimentalCoroutinesApi
+    val gameState: LiveData<GameStateModel> = logicRepo
+        .getGameState()
+        .catch {
+            Timber.d("qwer getGameState catch: %s", it.message)
+        }
+        .asLiveData()
 
     fun initialLoadCells(frWidth: Int, gridMargin: Int, cellMargin: Int) {
         logicRepo.initialLoadCells(frWidth, gridMargin, cellMargin)
