@@ -4,9 +4,8 @@
     <string name="nav_header_subtitle">Пятнашки</string>
     <string name="nav_header_desc">Заголовок навигации</string>
 
-    <!-- Labels -->
-
     <string name="ok">OK</string>
+    <string name="cancel">ОТМЕНА</string>
 
     <!--    Menu-->
     <string name="action_settings">Настройки</string>
@@ -19,7 +18,9 @@
 
     <!--    Dialog-->
     <string name="winner">Победитель</string>
+    <string name="finish">Финиш</string>
     <string name="congratulations_you_solved_it">Поздравляем! Вы решили это!</string>
+    <string name="sorry_unsolvable">Жаль, но эту головоломку невозможно решить :(</string>
     <string name="next">Следующий!</string>
 
     <string name="include_str">Включить</string>

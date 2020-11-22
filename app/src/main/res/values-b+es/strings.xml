@@ -4,9 +4,8 @@
     <string name="nav_header_subtitle">Juego de quince</string>
     <string name="nav_header_desc">Encabezado de navegación</string>
 
-    <!-- Labels -->
-
     <string name="ok">OK</string>
+    <string name="cancel">CANCELAR</string>
 
     <!--    Menu-->
     <string name="action_settings">Configuraciones</string>
@@ -19,7 +18,9 @@
 
     <!--    Dialog-->
     <string name="winner">Ganador</string>
+    <string name="finish">Final</string>
     <string name="congratulations_you_solved_it">¡Felicidades! ¡Lo resolviste!</string>
+    <string name="sorry_unsolvable">Lo siento, este rompecabezas es imposible de resolver :(</string>
     <string name="next">Next!</string>
 
     <string name="include_str">Incluir</string>

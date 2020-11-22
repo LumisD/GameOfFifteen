@@ -10,26 +10,26 @@ class GameRepositoryImpl @Inject constructor(
     private val gameDataMapper: GameDataMapper
 ) : GameRepository {
 
-    override suspend fun getAllGames(): List<GameModel> =
+    override fun getAllGames(): List<GameModel> =
         daoDB.getAllGames().map { with(gameDataMapper) { it.fromEntityToDomain() } }
 
-    override suspend fun getGame(gameId: Int): GameModel? =
+    override fun getGame(gameId: Int): GameModel? =
         daoDB.getGame(gameId)?.let { with(gameDataMapper) { it.fromEntityToDomain() } }
 
-    override suspend fun getGame(gameName: String): GameModel? =
+    override fun getGame(gameName: String): GameModel? =
         daoDB.getGame(gameName)?.let { with(gameDataMapper) { it.fromEntityToDomain() } }
 
-    override suspend fun insertAllGames(games: List<GameModel>) =
+    override fun insertAllGames(games: List<GameModel>) =
         daoDB.insertAllGames(games.map { with(gameDataMapper) { it.fromDomainToEntity() } })
 
-    override suspend fun insertGame(game: GameModel) =
+    override fun insertGame(game: GameModel) =
         daoDB.insertGame(with(gameDataMapper) { game.fromDomainToEntity() })
 
-    override suspend fun deleteGame(gameId: Int) = daoDB.deleteGame(gameId)
+    override fun deleteGame(gameId: Int) = daoDB.deleteGame(gameId)
 
-    override suspend fun deleteAllGames() = daoDB.deleteAllGames()
+    override fun deleteAllGames() = daoDB.deleteAllGames()
 
-    override suspend fun getMaxId(): Int = daoDB.getMaxIdGame()
+    override fun getMaxId(): Int = daoDB.getMaxIdGame()
 
-    override suspend fun getGameCount(): Int = daoDB.getGameCount()
+    override fun getGameCount(): Int = daoDB.getGameCount()
 }
