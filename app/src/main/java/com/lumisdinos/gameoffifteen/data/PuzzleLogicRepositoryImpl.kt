@@ -1,7 +1,8 @@
 package com.lumisdinos.gameoffifteen.data
 
+import com.lumisdinos.gameoffifteen.common.AppConfig
 import com.lumisdinos.gameoffifteen.common.AppConfig.cell15Size
-import com.lumisdinos.gameoffifteen.common.AppConfig.currentGameDimention
+import com.lumisdinos.gameoffifteen.common.AppConfig.currentGameDimension
 import com.lumisdinos.gameoffifteen.common.Event
 import com.lumisdinos.gameoffifteen.data.Constants.GAME_15
 import com.lumisdinos.gameoffifteen.domain.model.GameStateModel
@@ -35,8 +36,8 @@ class PuzzleLogicRepositoryImpl @Inject constructor(
     override fun initialLoadCells(frWidth: Int, gridMargin: Int, cellMargin: Int) {
         CoroutineScope(Dispatchers.Main).launch {
             withContext(Dispatchers.IO) {
-                currentGameDimention = GAME_15
-                setCellSizInConfig(frWidth, gridMargin, cellMargin)
+                currentGameDimension = GAME_15
+                setCellAndFragWidthInConfig(frWidth, gridMargin, cellMargin)
                 generateCells()
             }
         }
@@ -67,10 +68,10 @@ class PuzzleLogicRepositoryImpl @Inject constructor(
                     }
                 }
 
-                if (firstUnordered == currentGameDimention) {
+                if (firstUnordered == currentGameDimension) {
                     setStateDialog(ACTION_CONGRATULATIONS)
-                } else if (firstUnordered == currentGameDimention - 2) {
-                    if (digits[currentGameDimention - 2] == currentGameDimention) {
+                } else if (firstUnordered == currentGameDimension - 2) {
+                    if (digits[currentGameDimension - 2] == currentGameDimension) {
                         setStateDialog(ACTION_UNSOLVABLE)
                     }
                 }
@@ -81,14 +82,15 @@ class PuzzleLogicRepositoryImpl @Inject constructor(
 
     private fun generateCells() {
         digits.clear()
-        val cells = (0..currentGameDimention).shuffled().toList()
+        val cells = (0..currentGameDimension).shuffled().toList()
         //val cells = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 0, 14, 15)
         digits.addAll(cells)
         setStateCells(digits)
     }
 
 
-    private fun setCellSizInConfig(frWidth: Int, gridMargin: Int, cellMargin: Int) {
+    private fun setCellAndFragWidthInConfig(frWidth: Int, gridMargin: Int, cellMargin: Int) {
+        AppConfig.fragWidth = frWidth
         cell15Size =
             (frWidth - Constants.TWO_SIDES * gridMargin - Constants.TWO_SIDES * Constants.FOUR_CELLS_IN_ROW * cellMargin) / Constants.FOUR_CELLS_IN_ROW
     }

@@ -10,6 +10,7 @@ import com.lumisdinos.gameoffifteen.databinding.FragmentHomeBinding
 import com.lumisdinos.gameoffifteen.domain.model.GameStateModel
 import com.lumisdinos.gameoffifteen.presentation.HomeViewModel
 import com.lumisdinos.gameoffifteen.ui.dialog.showMaterialAlertDialog
+import com.lumisdinos.gameoffifteen.ui.view.AnimateUtil
 import com.lumisdinos.gameoffifteen.ui.view.DragUtil
 import dagger.android.support.DaggerFragment
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -23,6 +24,9 @@ class HomeFragment : DaggerFragment() {
 
     @Inject
     lateinit var dragUtil: DragUtil
+
+    @Inject
+    lateinit var animateUtil: AnimateUtil
 
     private var viewBinding: FragmentHomeBinding? = null
     private val viewModel by viewModels<HomeViewModel> { viewModelFactory }
@@ -42,11 +46,8 @@ class HomeFragment : DaggerFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewBinding?.let {
-            it.diceImage.setOnClickListener {
-                viewModel.reloadCells()
-            }
-        }
+        viewBinding?.diceImageLeft?.setOnClickListener { viewModel.reloadCells() }
+        viewBinding?.diceImageRight?.setOnClickListener { viewModel.reloadCells() }
     }
 
 
@@ -88,8 +89,13 @@ class HomeFragment : DaggerFragment() {
                 it, viewBinding?.squareRL, viewModel::swapCellWithEmpty,
                 layoutInflater,
                 resources.getDimensionPixelSize(R.dimen.space_small),
-                resources.getDimensionPixelSize(R.dimen.space_extra_xxsmall)
+                resources.getDimensionPixelSize(R.dimen.space_extra_xxsmall),
+                animateUtil
             )
+            viewBinding?.let {
+                animateUtil.animateDice(it.diceImageLeft, true)
+                animateUtil.animateDice(it.diceImageRight, false)
+            }
         }
     }
 
