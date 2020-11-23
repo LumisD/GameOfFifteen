@@ -6,9 +6,11 @@ interface GameRepository {
 
     fun getAllGames(): List<GameModel>
 
+    fun getSolvedGames(orderByShortestTime: Boolean): List<GameModel>
+
     fun getGame(gameId: Int): GameModel?
 
-    fun getGame(gameName: String): GameModel?
+    fun getGameNotSolved(): GameModel?
 
     fun insertAllGames(games: List<GameModel>)
 

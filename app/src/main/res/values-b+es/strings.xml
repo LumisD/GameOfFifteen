@@ -8,11 +8,9 @@
     <string name="cancel">CANCELAR</string>
 
     <!--    Menu-->
-    <string name="action_settings">Configuraciones</string>
-    <string name="action_tips">Ayuda</string>
-    <string name="menu_home">Hogar</string>
+    <string name="menu_puzzle">Rompecabezas</string>
     <string name="menu_settings">Configuraciones</string>
-    <string name="menu_list">Lista</string>
+    <string name="menu_results">Resultados</string>
 
     <!--    Snackbar-->
 

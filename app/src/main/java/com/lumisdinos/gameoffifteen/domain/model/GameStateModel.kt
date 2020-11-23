@@ -3,6 +3,9 @@ package com.lumisdinos.gameoffifteen.domain.model
 import com.lumisdinos.gameoffifteen.common.Event
 
 data class GameStateModel(
-    var cells: Event<List<Int>> = Event(emptyList()),
-    var showAlertDialog: Event<String> = Event("")
+    val time: Long = 0L,
+    val cells: List<Int> = emptyList(),
+    val isCellsUpdated: Boolean = false,
+    val showAlertDialog: String = "",
+    val isDialogUpdated: Boolean = false
 )

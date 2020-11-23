@@ -1,10 +1,13 @@
 package com.lumisdinos.gameoffifteen.data
 
-import com.lumisdinos.gameoffifteen.common.AppConfig
+import android.os.CountDownTimer
 import com.lumisdinos.gameoffifteen.common.AppConfig.cell15Size
 import com.lumisdinos.gameoffifteen.common.AppConfig.currentGameDimension
-import com.lumisdinos.gameoffifteen.common.Event
+import com.lumisdinos.gameoffifteen.common.AppConfig.fragWidth
+import com.lumisdinos.gameoffifteen.common.util.convertIntList2String
+import com.lumisdinos.gameoffifteen.common.util.convertString2IntList
 import com.lumisdinos.gameoffifteen.data.Constants.GAME_15
+import com.lumisdinos.gameoffifteen.domain.model.GameModel
 import com.lumisdinos.gameoffifteen.domain.model.GameStateModel
 import com.lumisdinos.gameoffifteen.domain.repos.GameRepository
 import com.lumisdinos.gameoffifteen.domain.repos.GameStateRepository
@@ -25,6 +28,9 @@ class PuzzleLogicRepositoryImpl @Inject constructor(
 
     var gameState = GameStateModel()
     private val digits = mutableListOf<Int>()
+    private var game: GameModel? = null
+    private var timer: CountDownTimer? = null
+    private var isTimerWorking = false
 
 
     override fun getGameState(): Flow<GameStateModel> {
@@ -35,10 +41,11 @@ class PuzzleLogicRepositoryImpl @Inject constructor(
 
     override fun initialLoadCells(frWidth: Int, gridMargin: Int, cellMargin: Int) {
         CoroutineScope(Dispatchers.Main).launch {
+            startTimer()
             withContext(Dispatchers.IO) {
                 currentGameDimension = GAME_15
                 setCellAndFragWidthInConfig(frWidth, gridMargin, cellMargin)
-                generateCells()
+                createGame()
             }
         }
     }
@@ -46,8 +53,16 @@ class PuzzleLogicRepositoryImpl @Inject constructor(
 
     override fun reloadCells() {
         CoroutineScope(Dispatchers.Main).launch {
+            setStateTime(0)
+            startTimer()
             withContext(Dispatchers.IO) {
-                generateCells()
+                game?.let {
+                    if (it.isSolved) {
+                        createGame()
+                    } else {
+                        generateCells()
+                    }
+                }
             }
         }
     }
@@ -70,9 +85,17 @@ class PuzzleLogicRepositoryImpl @Inject constructor(
 
                 if (firstUnordered == currentGameDimension) {
                     setStateDialog(ACTION_CONGRATULATIONS)
+                    game?.let {
+                        game = it.copy(isSolved = true, endTime = System.currentTimeMillis())
+                    }
+                    saveGame()
                 } else if (firstUnordered == currentGameDimension - 2) {
                     if (digits[currentGameDimension - 2] == currentGameDimension) {
                         setStateDialog(ACTION_UNSOLVABLE)
+                        game?.let {
+                            game = it.copy(isSolved = true, endTime = System.currentTimeMillis())
+                        }
+                        saveGame()
                     }
                 }
             }
@@ -80,30 +103,126 @@ class PuzzleLogicRepositoryImpl @Inject constructor(
     }
 
 
-    private fun generateCells() {
+    override fun createGame() {
+        if (cell15Size == 0) return
+        CoroutineScope(Dispatchers.Main).launch {
+            if (!isTimerWorking) {
+                startTimer()
+            }
+            withContext(Dispatchers.IO) {
+                game = gameRepository.getGameNotSolved()
+                if (game == null) {
+                    game =
+                        GameModel(
+                            id = gameRepository.getMaxId() + 1,
+                            startTime = System.currentTimeMillis()
+                        )
+                    gameRepository.insertGame(game!!)
+                }
+                game?.let {
+                    generateCells(convertString2IntList(it.digits))
+                }
+            }
+        }
+    }
+
+
+    override fun saveGame() {
+        CoroutineScope(Dispatchers.Main).launch {
+            stopTimer()
+            withContext(Dispatchers.IO) {
+                game?.let {
+                    val gameUpdate = it.copy(digits = convertIntList2String(digits))
+                    gameRepository.insertGame(gameUpdate)
+                }
+            }
+        }
+    }
+
+
+    override fun cellsAreRendered() {
+        gameState = gameState.copy(isCellsUpdated = false)
+    }
+
+    override fun dialogIsRendered() {
+        gameState = gameState.copy(isDialogUpdated = false)
+    }
+
+
+    private fun generateCells(savedCells: List<Int> = emptyList()) {
         digits.clear()
-        val cells = (0..currentGameDimension).shuffled().toList()
-        //val cells = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 0, 14, 15)
+        val cells: List<Int>
+        if (savedCells.isEmpty()) {
+            //cells = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 0, 15, 14)
+            cells = (0..currentGameDimension).shuffled().toList()
+        } else {
+            cells = savedCells
+        }
         digits.addAll(cells)
-        setStateCells(digits)
+        CoroutineScope(Dispatchers.Main).launch { setStateCells(digits) }
     }
 
 
     private fun setCellAndFragWidthInConfig(frWidth: Int, gridMargin: Int, cellMargin: Int) {
-        AppConfig.fragWidth = frWidth
+        fragWidth = frWidth
         cell15Size =
             (frWidth - Constants.TWO_SIDES * gridMargin - Constants.TWO_SIDES * Constants.FOUR_CELLS_IN_ROW * cellMargin) / Constants.FOUR_CELLS_IN_ROW
     }
 
 
-    private fun setStateCells(cells: List<Int>) {
-        gameState = gameState.copy(cells = Event(cells))
-        gameStateRepository.insertGameState(gameState)
+    private fun startTimer() {
+        stopTimer()
+        isTimerWorking = true
+        var isFirstTick = true
+        timer = object : CountDownTimer(1_000_000_000L, 1000L) {
+            override fun onTick(millisUntilFinished: Long) {
+                game?.let {
+                    if (isFirstTick) {
+                        isFirstTick = false
+                        CoroutineScope(Dispatchers.Main).launch { setStateTime(it.time) }
+                    } else {
+                        CoroutineScope(Dispatchers.Main).launch { setStateTime(it.time + 1000) }
+                    }
+                }
+            }
+
+            override fun onFinish() {
+            }
+        }
+        timer!!.start()
     }
 
 
-    private fun setStateDialog(action: String) {
-        gameState = gameState.copy(showAlertDialog = Event(action))
-        gameStateRepository.insertGameState(gameState)
+    private fun stopTimer() {
+        isTimerWorking = false
+        timer?.let { it.cancel() }
+        timer = null
+    }
+
+
+    private suspend fun setStateCells(cells: List<Int>) {
+        withContext(Dispatchers.IO) {
+            gameState = gameState.copy(cells = cells, isCellsUpdated = true)
+            gameStateRepository.insertGameState(gameState)
+        }
+    }
+
+
+    private suspend fun setStateTime(newTime: Long) {
+        withContext(Dispatchers.IO) {
+            game?.let {
+                game = it.copy(time = newTime)
+            }
+            gameState = gameState.copy(time = newTime)
+            gameStateRepository.insertGameState(gameState)
+        }
+    }
+
+
+    private suspend fun setStateDialog(action: String) {
+        withContext(Dispatchers.IO) {
+            gameState = gameState.copy(showAlertDialog = action, isDialogUpdated = true)
+            gameStateRepository.insertGameState(gameState)
+        }
     }
 }

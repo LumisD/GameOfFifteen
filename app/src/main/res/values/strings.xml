@@ -10,11 +10,9 @@
     <string name="cancel">CANCEL</string>
 
     <!--    Menu-->
-    <string name="action_settings">Settings</string>
-    <string name="action_tips">Help</string>
-    <string name="menu_home">Home</string>
+    <string name="menu_puzzle">Puzzle</string>
     <string name="menu_settings">Settings</string>
-    <string name="menu_list">List</string>
+    <string name="menu_results">Results</string>
 
     <!--    Snackbar-->
 

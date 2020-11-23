@@ -9,13 +9,21 @@ class GameDataMapper @Inject constructor() {
     fun GameEntity.fromEntityToDomain() = GameModel(
         id = id,
         name = name,
-        time = time
+        startTime = startTime,
+        endTime = endTime,
+        time = time,
+        digits = digits,
+        isSolved = isSolved
     )
 
     fun GameModel.fromDomainToEntity() = GameEntity(
         id = id,
         name = name,
-        time = time
+        startTime = startTime,
+        endTime = endTime,
+        time = time,
+        digits = digits,
+        isSolved = isSolved
     )
 
 }

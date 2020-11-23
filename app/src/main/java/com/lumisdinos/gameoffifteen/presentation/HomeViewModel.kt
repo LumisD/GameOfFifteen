@@ -34,4 +34,23 @@ class HomeViewModel @Inject constructor(
         logicRepo.swapCellWithEmpty(cellIndex, zeroIndex)
     }
 
+    fun getGame() {
+        logicRepo.createGame()
+    }
+
+
+    fun saveGame() {
+        logicRepo.saveGame()
+    }
+
+
+    fun cellsAreRendered() {
+        logicRepo.cellsAreRendered()
+    }
+
+
+    fun dialogIsRendered() {
+        logicRepo.dialogIsRendered()
+    }
+
 }

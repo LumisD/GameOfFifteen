@@ -8,11 +8,9 @@
     <string name="cancel">ОТМЕНА</string>
 
     <!--    Menu-->
-    <string name="action_settings">Настройки</string>
-    <string name="action_tips">Помощь</string>
-    <string name="menu_home">Дом</string>
+    <string name="menu_puzzle">Пятнашки</string>
     <string name="menu_settings">Настройки</string>
-    <string name="menu_list">Лист</string>
+    <string name="menu_results">Результаты</string>
 
     <!--    Snackbar-->
 
