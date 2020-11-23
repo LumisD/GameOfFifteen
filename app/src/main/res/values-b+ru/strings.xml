@@ -1,72 +1,21 @@
 <resources>
     <string name="app_name">Пятнашки</string>
     <string name="nav_header_title">Пятнашки</string>
-    <string name="nav_header_subtitle">Пятнашки</string>
     <string name="nav_header_desc">Заголовок навигации</string>
-
-    <string name="ok">OK</string>
-    <string name="cancel">ОТМЕНА</string>
 
     <!--    Menu-->
     <string name="menu_puzzle">Пятнашки</string>
     <string name="menu_settings">Настройки</string>
     <string name="menu_results">Результаты</string>
 
-    <!--    Snackbar-->
-
     <!--    Dialog-->
     <string name="winner">Победитель</string>
     <string name="finish">Финиш</string>
     <string name="congratulations_you_solved_it">Поздравляем! Вы решили это!</string>
     <string name="sorry_unsolvable">Жаль, но эту головоломку невозможно решить :(</string>
-    <string name="next">Следующий!</string>
 
-    <string name="include_str">Включить</string>
-    <string name="exclude_str">Исключить</string>
-    <string name="guess_str">Гадать</string>
-    <string name="solution_str">Решение</string>
-
-
-    <!--    dialog tips -->
-    <!--    home tips -->
-    <string name="tips_hints">Советы и подсказки</string>
-    <string name="top_bar">Верхняя панель</string>
-    <string name="check_solution">
-        Приложение проверяет, что каждая строка, столбец и квадрат 3x3 не имеют повторяющихся номеров и если есть такие ошибки, отображает их на красном фоне
-    </string>
-    <string name="step_by_step_solution" formatted="false">
-        Пошаговое решение:\n
-        Сначала приложение просматривает все пустые ячейки и вводит все возможные (зеленые) и невозможные (красные) числа\n
-        Затем, приложение ищет в пустых ячейках, когда 8 цифр "невозможных", значит оставшееся - «решение»\n
-        Результат решения показывается. Все измененные ячейки имеют желтый фон\n
-        Если вы нажимаете снова и снова, предыдущая логика перестает работать, так как все возможные изменения уже сделаны, и приложение начинает "гадать":\n
-        Оно выбирает ячейку с наименьшим количеством "возоможных" цифр и выбирает первое как "гадание",\n
-        затем выполняются шаги решения как описано выше\n
-        "Гадание" показывается как цифра с красным цветом, также показываются другие "возможные" цифры, но все "невозможные" цифры спрятаны\n
-        Если "гадание" неправильное, следующая "возможная" цифра показывается как "гадание"
-    </string>
-    <string name="quick_solution">Тоже самое как описано выше, но делается это раз за разом пока Судоку не будет решено или не покажется ошибка</string>
-    <string name="bottom_bar">Нижняя панель</string>
-    <string name="save_icon" formatted="false">
-        Завершите заполнение пустого Судоку\nПосле этого можете начать его решать
-    </string>
-    <string name="solution_explication">Ввести цифру «решение», если вы уверены, что она верна</string>
-    <string name="guess_explication" formatted="false">
-        Ввести цифру «гадание», если вы НЕ уверены, что она верна верная\n
-        Хорошая практика - выбирать «угадываемую» цифру из «возможных»
-    </string>
-    <string name="exclude_explication" formatted="false">
-        Ввести "невозможные" цифры\n
-        Посмотрите, какие цифры отображаются в той же строке, где находится ваша пустая ячейка, и введите эти цифры как невозможные\n
-        Повторите это для колонки и квадрата 3 на 3
-    </string>
-    <string name="include_explication" formatted="false">
-        Ввести "возможные" цифры\n
-        Операция противоположная описанной выше для "невозможных" цифр
-    </string>
-
-
-    <string name="next_explication">Таже самая функциональность как для иконки пошагового решения</string>
+    <string name="you_didnot_solve_yet">Вы еще не решили ни одной пятнашки</string>
+    <string name="ok">OK</string>
 
 
 </resources>

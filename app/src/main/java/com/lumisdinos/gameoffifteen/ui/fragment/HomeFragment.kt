@@ -80,14 +80,8 @@ class HomeFragment : DaggerFragment() {
 
 
     private fun render(gameState: GameStateModel) {
-        if (gameState.isCellsUpdated) {
-            replaceCellsInLLayout(gameState.cells)
-            viewModel.cellsAreRendered()
-        }
-        if (gameState.isDialogUpdated) {
-            showAlertDialog(gameState.showAlertDialog)
-            viewModel.dialogIsRendered()
-        }
+        if (gameState.isCellsUpdated) replaceCellsInLLayout(gameState.cells)
+        if (gameState.isDialogUpdated) showAlertDialog(gameState.showAlertDialog)
         updateTime(gameState.time)
     }
 
@@ -106,6 +100,7 @@ class HomeFragment : DaggerFragment() {
 
 
     private fun replaceCellsInLLayout(cells: List<Int>) {
+        viewModel.cellsAreRendered()
         dragUtil.insertCellsInLLayout(
             cells, viewBinding?.squareRL, viewModel::swapCellWithEmpty,
             layoutInflater,
@@ -128,6 +123,7 @@ class HomeFragment : DaggerFragment() {
     private fun showAlertDialog(action: String) {
         if (action.isNotEmpty()) {
             context?.let { cont -> showMaterialAlertDialog(cont, action) }
+            viewModel.dialogIsRendered()
         }
     }
 

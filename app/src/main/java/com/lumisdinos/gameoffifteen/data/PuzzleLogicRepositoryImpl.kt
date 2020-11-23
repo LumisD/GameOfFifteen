@@ -141,11 +141,15 @@ class PuzzleLogicRepositoryImpl @Inject constructor(
 
 
     override fun cellsAreRendered() {
-        gameState = gameState.copy(isCellsUpdated = false)
+        CoroutineScope(Dispatchers.Main).launch {
+            withContext(Dispatchers.IO) { setStateCells(gameState.cells, false) }
+        }
     }
 
     override fun dialogIsRendered() {
-        gameState = gameState.copy(isDialogUpdated = false)
+        CoroutineScope(Dispatchers.Main).launch {
+            withContext(Dispatchers.IO) { setStateDialog("", false) }
+        }
     }
 
 
@@ -200,9 +204,9 @@ class PuzzleLogicRepositoryImpl @Inject constructor(
     }
 
 
-    private suspend fun setStateCells(cells: List<Int>) {
+    private suspend fun setStateCells(cells: List<Int>, isCellsNew: Boolean = true) {
         withContext(Dispatchers.IO) {
-            gameState = gameState.copy(cells = cells, isCellsUpdated = true)
+            gameState = gameState.copy(cells = cells, isCellsUpdated = isCellsNew)
             gameStateRepository.insertGameState(gameState)
         }
     }
@@ -219,9 +223,9 @@ class PuzzleLogicRepositoryImpl @Inject constructor(
     }
 
 
-    private suspend fun setStateDialog(action: String) {
+    private suspend fun setStateDialog(action: String, isNewAction: Boolean = true) {
         withContext(Dispatchers.IO) {
-            gameState = gameState.copy(showAlertDialog = action, isDialogUpdated = true)
+            gameState = gameState.copy(showAlertDialog = action, isDialogUpdated = isNewAction)
             gameStateRepository.insertGameState(gameState)
         }
     }

@@ -1,5 +1,8 @@
 package com.lumisdinos.gameoffifteen.common.util
 
+import android.annotation.SuppressLint
+import com.lumisdinos.gameoffifteen.data.Constants
+import java.text.SimpleDateFormat
 import java.util.concurrent.TimeUnit
 
 
@@ -12,5 +15,15 @@ fun formatToDigitalClock(milliSeconds: Long): String {
         minutes > 0 -> String.format("%02d:%02d", minutes, seconds)
         seconds > 0 -> String.format("00:%02d", seconds)
         else -> ""
+    }
+}
+
+
+@SuppressLint("SimpleDateFormat")
+fun convertLongToDateString(systemTime: Long): String {
+    return try {
+        SimpleDateFormat(Constants.DAY_MONTH_YEAR).format(systemTime)
+    } catch (e: java.lang.Exception) {
+        ""
     }
 }
