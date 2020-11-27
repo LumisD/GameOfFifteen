@@ -5,11 +5,11 @@ import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
 @Module
-abstract class MainModule {
+abstract class ActivitiesBuildersModule {
     @ContributesAndroidInjector(
         modules = [
-            ViewModelBuilder::class
+            FragmentBuildersModule::class
         ]
     )
-    internal abstract fun mainActivity(): MainActivity
+    abstract fun contributeMainActivity(): MainActivity
 }

@@ -1,45 +1,45 @@
 <resources>
-    <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-    <dimen name="nav_header_vertical_spacing">8dp</dimen>
-    <dimen name="nav_header_height">176dp</dimen>
+    <dimen name="list_item_padding">8dp</dimen>
 
+    <dimen name="space_none">0dp</dimen>
+    <dimen name="extra_xsmall">1dp</dimen>
+    <dimen name="space_extra_xsmall">2dp</dimen>
     <dimen name="space_extra_xxsmall">4dp</dimen>
     <dimen name="space_extra_xxxsmall">6dp</dimen>
 
     <dimen name="space_small">8dp</dimen>
     <dimen name="space_xsmall">10dp</dimen>
     <dimen name="space_xxsmall">12dp</dimen>
+    <dimen name="space_xxxsmall">14dp</dimen>
 
     <dimen name="space_normal">16dp</dimen>
+    <dimen name="space_xnormal">18dp</dimen>
+    <dimen name="space_xxnormal">20dp</dimen>
+    <dimen name="space_xxxnormal">22dp</dimen>
 
     <dimen name="space_large">24dp</dimen>
+    <dimen name="space_mlarge">26dp</dimen>
     <dimen name="space_xlarge">32dp</dimen>
+    <dimen name="space_xxlarge">64dp</dimen>
+    <dimen name="space_xxxlarge">98dp</dimen>
 
-    <dimen name="game_grid_margin">8dp</dimen>
-    <dimen name="cell_margin">4dp</dimen>
+    <dimen name="material_text_button">14sp</dimen>
+    <dimen name="material_text_menu">14sp</dimen>
+    <dimen name="material_text_caption">12sp</dimen>
+    <dimen name="material_text_body">14sp</dimen>
+    <dimen name="material_text_subhead">16sp</dimen>
+    <dimen name="material_text_title">20sp</dimen>
+    <dimen name="material_text_headline">24sp</dimen>
+    <dimen name="material_text_display1">34sp</dimen>
+    <dimen name="material_text_display2">45sp</dimen>
+    <dimen name="material_text_display3">56sp</dimen>
+    <dimen name="material_text_display4">112sp</dimen>
 
-<!--    Table margin/padding-->
-<!--    table_cell_margin is used for program calculations-->
-    <!--    table_cell_width_step is used for up/down cell width-->
-
-    <!--    Button width/height-->
-    <dimen name="button_height">40dp</dimen>
-
-    <!--    Text sizes-->
-    <dimen name="dialog_tips_text_size">15sp</dimen>
-    <dimen name="table_cell_text_size">24sp</dimen>
-    <dimen name="spinner_text_size">22sp</dimen>
-    <!--    table_cell_width_step is used for up/down cell width-->
-    <dimen name="button_text_size">14sp</dimen>
-    <dimen name="dialog_title_text_size">18sp</dimen>
-
-    <!--    List item heights-->
-    <dimen name="list_item_smaller_1_height">55dp</dimen>
-
+    <dimen name="nav_header_height">176dp</dimen>
     <dimen name="dice_width">130dp</dimen>
-
-
+    <dimen name="dice_right_margin_top">32dp</dimen>
+    <dimen name="delete_icon">50dp</dimen>
 
 </resources>

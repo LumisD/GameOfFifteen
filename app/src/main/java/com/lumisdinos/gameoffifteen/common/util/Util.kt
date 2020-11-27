@@ -1,9 +1,9 @@
 package com.lumisdinos.gameoffifteen.common.util
 
 import com.lumisdinos.gameoffifteen.common.extension.stringToInt
-import com.lumisdinos.gameoffifteen.common.AppConfig.longDelay
 import com.lumisdinos.gameoffifteen.common.AppConfig.previousClickTimeMillis
-import com.lumisdinos.gameoffifteen.common.AppConfig.shortDelay
+import com.lumisdinos.gameoffifteen.data.Constants.LONG_DELAY
+import com.lumisdinos.gameoffifteen.data.Constants.SHORT_DELAY
 
 
 fun strToInt(string: String, default: Int = 0): Int {
@@ -32,13 +32,18 @@ fun convertString2IntList(listAsString: String): MutableList<Int> {
 }
 
 
+fun convertIntList2String(list: List<Int>): String {
+    return list.joinToString(",").trim()
+}
+
+
 fun isClickedSingle(): Boolean {
-    return isAlreadyClick(longDelay)
+    return isAlreadyClick(LONG_DELAY)
 }
 
 
 fun isClickedShort(): Boolean {
-    return isAlreadyClick(shortDelay)
+    return isAlreadyClick(SHORT_DELAY)
 }
 
 

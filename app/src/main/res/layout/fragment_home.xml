@@ -3,7 +3,46 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/bg_yellow_faint">
+
+    <ImageView
+        android:id="@+id/diceImageLeft"
+        android:layout_width="@dimen/dice_width"
+        android:layout_height="@dimen/dice_width"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginEnd="@dimen/space_xxlarge"
+        app:srcCompat="@drawable/dice_1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/squareRL"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/diceImageRight"
+        android:layout_width="@dimen/dice_width"
+        android:layout_height="@dimen/dice_width"
+        android:layout_marginTop="@dimen/dice_right_margin_top"
+        android:layout_marginStart="@dimen/space_xxlarge"
+        app:srcCompat="@drawable/dice_6"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/squareRL"
+        tools:ignore="ContentDescription" />
+
+    <RelativeLayout
+        android:id="@+id/squareRL"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="H,1:1"
+        android:textAlignment="center"
+        android:textSize="@dimen/material_text_title"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
