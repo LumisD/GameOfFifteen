@@ -16,14 +16,16 @@
 
     <!--    Backgrounds-->
     <color name="bg_yellow_faint">#FFF5AA</color>
-    <color name="table_cell_background">#F0EFEF</color>
-    <color name="colorGrayTransparent">#bbC0C0C0</color>
+    <color name="grey_background">#F0EFEF</color>
+    <color name="gray_transp_bg">#bbC0C0C0</color>
+    <color name="nav_bar_start_bg">#FFF6CA</color>
+    <color name="nav_bar_center_bg">#FFD566</color>
+    <color name="nav_bar_end_bg">#FFC044</color>
 
     <!--    Texts-->
     <color name="black_text">#000000</color>
     <color name="red_text">#D81B60</color>
 
-    <!--    Lines-->
-
+    <color name="red_icon">#FC0000</color>
 
 </resources>

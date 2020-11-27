@@ -13,11 +13,20 @@ class GameRepositoryImpl @Inject constructor(
     override fun getAllGames(): List<GameModel> =
         daoDB.getAllGames().map { with(gameDataMapper) { it.fromEntityToDomain() } }
 
+    override fun getSolvedGames(orderByShortestTime: Boolean): List<GameModel> {
+        return if (orderByShortestTime) {
+            daoDB.getSolvedGames().map { with(gameDataMapper) { it.fromEntityToDomain() } }
+        } else {
+            daoDB.getSolvedGamesOrderByShortestTime()
+                .map { with(gameDataMapper) { it.fromEntityToDomain() } }
+        }
+    }
+
     override fun getGame(gameId: Int): GameModel? =
         daoDB.getGame(gameId)?.let { with(gameDataMapper) { it.fromEntityToDomain() } }
 
-    override fun getGame(gameName: String): GameModel? =
-        daoDB.getGame(gameName)?.let { with(gameDataMapper) { it.fromEntityToDomain() } }
+    override fun getGameNotSolved(): GameModel? =
+        daoDB.getGameNotSolved()?.let { with(gameDataMapper) { it.fromEntityToDomain() } }
 
     override fun insertAllGames(games: List<GameModel>) =
         daoDB.insertAllGames(games.map { with(gameDataMapper) { it.fromDomainToEntity() } })

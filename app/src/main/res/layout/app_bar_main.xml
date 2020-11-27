@@ -16,7 +16,20 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:popupTheme="@style/Theme.GameOfFifteen.PopupOverlay" />
+            app:popupTheme="@style/Theme.GameOfFifteen.PopupOverlay">
+
+            <TextView
+                android:id="@+id/clock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/material_text_headline"
+                android:textStyle="bold"
+                android:layout_margin="@dimen/space_small"
+                android:textColor="@color/bg_yellow_faint"
+                android:layout_gravity="center"
+                android:visibility="gone"/>
+
+        </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
 

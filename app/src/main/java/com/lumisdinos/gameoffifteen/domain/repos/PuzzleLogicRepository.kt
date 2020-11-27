@@ -13,6 +13,14 @@ interface PuzzleLogicRepository {
 
     fun swapCellWithEmpty(cellIndex: Int, zeroIndex: Int)
 
+    fun createGame()
+
+    fun saveGame()
+
+    fun cellsAreRendered()
+
+    fun dialogIsRendered()
+
     companion object {
         const val ACTION_CONGRATULATIONS = "100"
         const val ACTION_UNSOLVABLE = "101"

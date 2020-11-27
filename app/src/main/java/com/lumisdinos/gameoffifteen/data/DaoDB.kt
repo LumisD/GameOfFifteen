@@ -25,11 +25,17 @@ interface DaoDB {
     @Query("SELECT * FROM game")
     fun getAllGames(): List<GameEntity>
 
+    @Query("SELECT * FROM game WHERE is_solved = 1 ORDER BY end_time DESC")
+    fun getSolvedGames(): List<GameEntity>
+
+    @Query("SELECT * FROM game WHERE is_solved = 1 ORDER BY time")
+    fun getSolvedGamesOrderByShortestTime(): List<GameEntity>
+
     @Query("SELECT * FROM game WHERE id = :gameId LIMIT 1")
     fun getGame(gameId: Int): GameEntity?
 
-    @Query("SELECT * FROM game WHERE name = :name LIMIT 1")
-    fun getGame(name: String): GameEntity?
+    @Query("SELECT * FROM game WHERE is_solved = 0 LIMIT 1")
+    fun getGameNotSolved(): GameEntity?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAllGames(games: List<GameEntity>)

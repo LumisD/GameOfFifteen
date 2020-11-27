@@ -1,73 +1,21 @@
 <resources>
     <string name="app_name">Juego de quince</string>
     <string name="nav_header_title">Juego de quince</string>
-    <string name="nav_header_subtitle">Juego de quince</string>
     <string name="nav_header_desc">Encabezado de navegación</string>
 
-    <string name="ok">OK</string>
-    <string name="cancel">CANCELAR</string>
-
     <!--    Menu-->
-    <string name="action_settings">Configuraciones</string>
-    <string name="action_tips">Ayuda</string>
-    <string name="menu_home">Hogar</string>
+    <string name="menu_puzzle">Rompecabezas</string>
     <string name="menu_settings">Configuraciones</string>
-    <string name="menu_list">Lista</string>
-
-    <!--    Snackbar-->
+    <string name="menu_results">Resultados</string>
 
     <!--    Dialog-->
     <string name="winner">Ganador</string>
     <string name="finish">Final</string>
     <string name="congratulations_you_solved_it">¡Felicidades! ¡Lo resolviste!</string>
     <string name="sorry_unsolvable">Lo siento, este rompecabezas es imposible de resolver :(</string>
-    <string name="next">Next!</string>
 
-    <string name="include_str">Incluir</string>
-    <string name="exclude_str">Excluir</string>
-    <string name="guess_str">Suposición</string>
-    <string name="solution_str">Solución</string>
-
-    <!--    dialog tips -->
-    <!--    home tips -->
-    <string name="tips_hints">Consejos y sugerencias</string>
-    <string name="top_bar">Barra superior</string>
-    <string name="check_solution">
-        La aplicación verifica que cada fila, columna y cuadrado de 3x3 no tenga números duplicados, y si hay tales errores, los muestra sobre un fondo rojo
-    </string>
-    <string name="step_by_step_solution" formatted="false">
-        Resolución paso a paso:\n
-        Primero, la aplicación revisa todas las celdas vacías e ingresa todos los números posibles (verde) e imposibles (rojo)\n
-        En segundo lugar, la aplicación busca en celdas vacías cuando 8 dígitos son imposibles, por lo que el resto es una "solución"\n
-        Se le muestra el resultado. Todas las celdas cambiadas tienen un fondo amarillo\n
-        Si hace clic una y otra vez, la lógica anterior deja de funcionar, ya que no se puede cambiar nada y la aplicación comienza a "adivinar":\n
-        elige la celda con el menor número de dígitos "posibles" y elige el primero como una "suposición",\n
-        luego hace el primer y segundo paso\n
-        "Suposición" se muestra como un dígito rojo, también se muestran otros dígitos "posibles", pero todos los dígitos "imposibles" están ocultos\n
-        Si la "suposición" fue incorrecta, el siguiente dígito posible se muestra como "suposición"
-    </string>
-    <string name="quick_solution">Igual que el anterior, pero hágalo hasta que se complete la solución o el error</string>
-    <string name="bottom_bar">Barra inferior</string>
-    <string name="save_icon" formatted="false">
-        Termina de completar un Sudoku vacío\nDespués de este paso puedes comenzar a resolver Sudoku
-    </string>
-    <string name="solution_explication">Para ingresar un dígito de "solución" si está seguro de que es correcto</string>
-    <string name="guess_explication" formatted="false">
-        Para ingresar un dígito "suposición" si NO está seguro de que sea correcto\n
-        Una buena práctica es elegir un dígito "suposición" entre los "posibles"
-    </string>
-    <string name="exclude_explication" formatted="false">
-        Para ingresar dígitos "imposibles"\n
-        Mire qué dígitos se muestran en la misma fila donde se colocó su celda vacía e ingrese esos dígitos como imposible\n
-        Repita para la misma columna y el cuadrado de 3x3
-    </string>
-    <string name="include_explication" formatted="false">
-        Para ingresar dígitos "posibles"\n
-        La operación opuesta descrita en "imposible" arriba
-    </string>
-
-
-    <string name="next_explication">Misma funcionalidad que el icono de resolución paso a paso</string>
+    <string name="you_didnot_solve_yet">Aún no resolviste ningún rompecabezas</string>
+    <string name="ok">OK</string>
 
 
 </resources>
