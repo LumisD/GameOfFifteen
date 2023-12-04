@@ -1,4 +1,4 @@
-package com.lumisdinos.gameoffifteen.ui.activity
+package com.lumisdinos.gameoffifteen.ui
 
 import android.os.Bundle
 import android.widget.TextView
@@ -9,43 +9,53 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.lumisdinos.gameoffifteen.R
 import com.lumisdinos.gameoffifteen.databinding.ActivityMainBinding
-import dagger.android.support.DaggerAppCompatActivity
-import kotlinx.android.synthetic.main.app_bar_main.view.*
+import dagger.hilt.android.AndroidEntryPoint
 
-class MainActivity : DaggerAppCompatActivity() {
+@AndroidEntryPoint
+class MainActivity : AppCompatActivity() {
 
-    private lateinit var viewBinding: ActivityMainBinding
+    private var _binding: ActivityMainBinding? = null
+    val binding get() = _binding!!
+
     private lateinit var appBarConfiguration: AppBarConfiguration
-    lateinit var clockTv: TextView
+    var clockTv: TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewBinding = ActivityMainBinding.inflate(layoutInflater)
-        val view = viewBinding.root
+        _binding = ActivityMainBinding.inflate(layoutInflater)
+        val view = binding.root
+
+        clockTv = binding.barMain.toolbar.findViewById<TextView>(R.id.clock)
         setContentView(view)
 
-        val toolbar: Toolbar = viewBinding.barMain.toolbar
+        val toolbar: Toolbar = binding.barMain.toolbar
         setSupportActionBar(toolbar)
-
-        clockTv = viewBinding.barMain.toolbar.clock
 
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host_fragment)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-        appBarConfiguration = AppBarConfiguration(setOf(
-            R.id.nav_home, R.id.nav_list), drawerLayout)
+        appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.nav_home, R.id.nav_list
+            ), drawerLayout
+        )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }
 
-
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

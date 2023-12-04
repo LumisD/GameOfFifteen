@@ -14,16 +14,19 @@ import com.lumisdinos.gameoffifteen.domain.repos.PuzzleLogicRepository
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 
+@InstallIn(SingletonComponent::class)
 @Module(includes = [ApplicationModuleBinds::class])
 object ApplicationModule {
 
-    @JvmStatic
-    @Singleton
     @Provides
-    fun provideDataBase(context: Context): Database {
+    @Singleton
+    fun provideDataBase(@ApplicationContext context: Context): Database {
         return Room.databaseBuilder(
             context.applicationContext,
             Database::class.java,
@@ -31,21 +34,20 @@ object ApplicationModule {
         ).build()
     }
 
-    @JvmStatic
-    @Singleton
     @Provides
+    @Singleton
     fun provideDaoDB(db: Database) = db.daoDB()
 
 
-    @JvmStatic
     @Singleton
     @Provides
-    fun providePreferences(context: Context): SharedPreferences {
+    fun providePreferences(@ApplicationContext context: Context): SharedPreferences {
         return context.getSharedPreferences("games_pref", MODE_PRIVATE)
     }
 
 }
 
+@InstallIn(SingletonComponent::class)
 @Module
 abstract class ApplicationModuleBinds {
 
@@ -55,6 +57,7 @@ abstract class ApplicationModuleBinds {
     @Binds
     abstract fun bindGameStateRepository(repository: GameStateRepositoryImpl): GameStateRepository
 
+    @Singleton
     @Binds
     abstract fun bindPuzzleLogicRepository(repository: PuzzleLogicRepositoryImpl): PuzzleLogicRepository
 

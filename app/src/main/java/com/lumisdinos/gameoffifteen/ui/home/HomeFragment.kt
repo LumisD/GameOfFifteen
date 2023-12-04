@@ -1,28 +1,26 @@
-package com.lumisdinos.gameoffifteen.ui.fragment
+package com.lumisdinos.gameoffifteen.ui.home
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.*
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import com.lumisdinos.gameoffifteen.R
 import com.lumisdinos.gameoffifteen.common.util.formatToDigitalClock
 import com.lumisdinos.gameoffifteen.databinding.FragmentHomeBinding
 import com.lumisdinos.gameoffifteen.domain.model.GameStateModel
-import com.lumisdinos.gameoffifteen.presentation.HomeViewModel
+import com.lumisdinos.gameoffifteen.ui.MainActivity
 import com.lumisdinos.gameoffifteen.ui.dialog.showMaterialAlertDialog
 import com.lumisdinos.gameoffifteen.ui.view.AnimateUtil
 import com.lumisdinos.gameoffifteen.ui.view.DragUtil
-import dagger.android.support.DaggerFragment
-import kotlinx.android.synthetic.main.app_bar_main.*
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 
 
-class HomeFragment : DaggerFragment() {
-
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
+@AndroidEntryPoint
+class HomeFragment : Fragment() {
 
     @Inject
     lateinit var dragUtil: DragUtil
@@ -30,18 +28,20 @@ class HomeFragment : DaggerFragment() {
     @Inject
     lateinit var animateUtil: AnimateUtil
 
-    private var viewBinding: FragmentHomeBinding? = null
-    private val viewModel by viewModels<HomeViewModel> { viewModelFactory }
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = _binding!!
+
+    private val viewModel: HomeViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        viewBinding = FragmentHomeBinding.inflate(inflater, container, false)
-        val view = viewBinding?.root
+    ): View {
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        val view = binding.root
         setHasOptionsMenu(true)
-        (activity as AppCompatActivity).clock.visibility = View.VISIBLE
+
         initCellLoadWhenViewIsDrawn(view)
         return view
     }
@@ -49,15 +49,19 @@ class HomeFragment : DaggerFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewBinding?.diceImageLeft?.setOnClickListener { viewModel.reloadCells() }
-        viewBinding?.diceImageRight?.setOnClickListener { viewModel.reloadCells() }
+        binding.diceImageLeft.setOnClickListener { viewModel.reloadCells() }
+        binding.diceImageRight.setOnClickListener { viewModel.reloadCells() }
+        Handler(Looper.getMainLooper()).postDelayed({
+            (activity as MainActivity).clockTv?.visibility = View.VISIBLE
+        }, 300)
     }
 
 
-    @ExperimentalCoroutinesApi
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @Deprecated("Deprecated in Java")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel.gameState.observe(viewLifecycleOwner, { render(it) })
+        viewModel.gameState.observe(viewLifecycleOwner) { render(it) }
     }
 
 
@@ -75,7 +79,7 @@ class HomeFragment : DaggerFragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        viewBinding = null
+        _binding = null
     }
 
 
@@ -102,13 +106,13 @@ class HomeFragment : DaggerFragment() {
     private fun replaceCellsInLLayout(cells: List<Int>) {
         viewModel.cellsAreRendered()
         dragUtil.insertCellsInLLayout(
-            cells, viewBinding?.squareRL, viewModel::swapCellWithEmpty,
+            cells, binding.squareRL, viewModel::swapCellWithEmpty,
             layoutInflater,
             resources.getDimensionPixelSize(R.dimen.space_small),
             resources.getDimensionPixelSize(R.dimen.space_extra_xxsmall),
             animateUtil
         )
-        viewBinding?.let {
+        binding.let {
             animateUtil.animateDice(it.diceImageLeft, true)
             animateUtil.animateDice(it.diceImageRight, false)
         }
@@ -116,7 +120,7 @@ class HomeFragment : DaggerFragment() {
 
 
     private fun updateTime(time: Long) {
-        (activity as AppCompatActivity).clock.text = formatToDigitalClock(time)
+        (activity as MainActivity).clockTv?.text = formatToDigitalClock(time)
     }
 
 

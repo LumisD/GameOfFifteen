@@ -1,11 +1,10 @@
-package com.lumisdinos.gameoffifteen.ui.fragment
+package com.lumisdinos.gameoffifteen.ui.list
 
 import android.os.Bundle
 import android.view.*
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.lumisdinos.gameoffifteen.R
 import com.lumisdinos.gameoffifteen.common.Resource
@@ -13,21 +12,18 @@ import com.lumisdinos.gameoffifteen.common.ResourceState
 import com.lumisdinos.gameoffifteen.common.util.isClickedShort
 import com.lumisdinos.gameoffifteen.databinding.FragmentListBinding
 import com.lumisdinos.gameoffifteen.domain.model.GameModel
-import com.lumisdinos.gameoffifteen.presentation.ListViewModel
+import com.lumisdinos.gameoffifteen.ui.MainActivity
 import com.lumisdinos.gameoffifteen.ui.adapter.AchiveListAdapter
 import com.lumisdinos.gameoffifteen.ui.adapter.OnGameItemClickListener
-import dagger.android.support.DaggerFragment
-import kotlinx.android.synthetic.main.app_bar_main.*
-import timber.log.Timber
-import javax.inject.Inject
+import dagger.hilt.android.AndroidEntryPoint
 
-class ListFragment : DaggerFragment(), OnGameItemClickListener {
+@AndroidEntryPoint
+class ListFragment : Fragment(), OnGameItemClickListener {
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
+    private var _binding: FragmentListBinding? = null
+    private val binding get() = _binding!!
 
-    private lateinit var viewBinding: FragmentListBinding
-    private val viewModel by viewModels<ListViewModel> { viewModelFactory }
+    private val viewModel: ListViewModel by viewModels()
     private var listAdapter: AchiveListAdapter? = null
 
 
@@ -35,15 +31,15 @@ class ListFragment : DaggerFragment(), OnGameItemClickListener {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        viewBinding = FragmentListBinding.inflate(inflater, container, false)
-        val view = viewBinding.root
+    ): View {
+        _binding = FragmentListBinding.inflate(inflater, container, false)
+        val view = binding.root
         setHasOptionsMenu(true)
-        (activity as AppCompatActivity).clock.visibility = View.GONE
+        (activity as MainActivity).clockTv?.visibility = View.GONE
         return view
     }
 
-
+    @Deprecated("Deprecated in Java")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         setupListAdapter()
@@ -52,11 +48,13 @@ class ListFragment : DaggerFragment(), OnGameItemClickListener {
     }
 
 
+    @Deprecated("Deprecated in Java")
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_list, menu)
     }
 
 
+    @Deprecated("Deprecated in Java")
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_switch -> {
@@ -79,17 +77,18 @@ class ListFragment : DaggerFragment(), OnGameItemClickListener {
         resource?.let {
             when (it.state) {
                 ResourceState.LOADING -> {
-                    viewBinding.pbLoading.visibility = View.VISIBLE
-                    viewBinding.noResultsTv.visibility = View.GONE
+                    binding.pbLoading.visibility = View.VISIBLE
+                    binding.noResultsTv.visibility = View.GONE
                 }
                 ResourceState.SUCCESS -> {
-                    viewBinding.pbLoading.visibility = View.GONE
-                    viewBinding.noResultsTv.visibility = View.GONE
+                    binding.pbLoading.visibility = View.GONE
+                    binding.noResultsTv.visibility = View.GONE
                 }
                 ResourceState.EMPTY -> {
-                    viewBinding.pbLoading.visibility = View.GONE
-                    viewBinding.noResultsTv.visibility = View.VISIBLE
+                    binding.pbLoading.visibility = View.GONE
+                    binding.noResultsTv.visibility = View.VISIBLE
                 }
+                else -> {}
             }
             it.data?.let {
                 listAdapter?.submitList(it)
@@ -100,8 +99,8 @@ class ListFragment : DaggerFragment(), OnGameItemClickListener {
 
     private fun setupListAdapter() {
         listAdapter = AchiveListAdapter(this)
-        viewBinding.gameList.adapter = listAdapter
-        viewBinding.gameList.addItemDecoration(
+        binding.gameList.adapter = listAdapter
+        binding.gameList.addItemDecoration(
             DividerItemDecoration(
                 activity,
                 DividerItemDecoration.VERTICAL
