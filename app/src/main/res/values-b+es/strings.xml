@@ -5,7 +5,7 @@
 
     <!--    Menu-->
     <string name="menu_puzzle">Rompecabezas</string>
-    <string name="menu_settings">Configuraciones</string>
+    <string name="menu_privacy_policy">Política de privacidad</string>
     <string name="menu_results">Resultados</string>
 
     <!--    Dialog-->
@@ -13,6 +13,18 @@
     <string name="finish">Final</string>
     <string name="congratulations_you_solved_it">¡Felicidades! ¡Lo resolviste!</string>
     <string name="sorry_unsolvable">Lo siento, este rompecabezas es imposible de resolver :(</string>
+
+    <string name="privicy_title">La política de privacidad de la aplicación "GameOfFifteen"</string>
+    <string name="privicy_collect">Qué información recopila la aplicación</string>
+    <string name="privicy_collect_text">La aplicación "GameOfFifteen" no recopila ninguna información sobre el usuario o su ubicación, no recopila registros HTTP o de servidor de ningún tipo. Esta aplicación no requiere ningún permiso como internet, bluetooth, etc.
+La aplicación no recopila ningún identificador persistente (como el ID de Google).</string>
+    <string name="privicy_use">Cómo utiliza la aplicación la información</string>
+    <string name="privicy_use_text">Como la aplicación no recopila ninguna información, no la utiliza de ninguna manera</string>
+    <string name="privicy_share">Qué información comparte la aplicación</string>
+    <string name="privicy_share_text">Como la aplicación no recopila ninguna información, no la comparte de ninguna manera</string>
+    <string name="privicy_doing">Qué hace la aplicación</string>
+    <string name="privicy_doing_text">La aplicación muestra 15 fichas numeradas y un espacio vacío. Puedes mover fichas una por una a un espacio vacío y así intentar alinear fichas del 1 al 15. Si lo logras, se ahorrará el tiempo invertido en esto, lo cual podrás ver en la sección Resultados. La aplicación no hace nada más</string>
+    <string name="privacy_policy_link">Enlace a <a href="https://sites.google.com/view/gameoffifteen/home">La política de privacidad</a></string>
 
     <string name="you_didnot_solve_yet">Aún no resolviste ningún rompecabezas</string>
     <string name="ok">OK</string>

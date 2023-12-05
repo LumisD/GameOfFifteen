@@ -17,9 +17,9 @@
         tools:layout="@layout/fragment_list" />
 
     <fragment
-        android:id="@+id/nav_settings"
-        android:name="com.lumisdinos.gameoffifteen.ui.settings.SettingsFragment"
-        android:label="@string/menu_settings"
-        tools:layout="@layout/fragment_settings" />
+        android:id="@+id/nav_privacy_policy"
+        android:name="com.lumisdinos.gameoffifteen.ui.policy.PolicyFragment"
+        android:label="@string/menu_privacy_policy"
+        tools:layout="@layout/fragment_privacy" />
 
 </navigation>

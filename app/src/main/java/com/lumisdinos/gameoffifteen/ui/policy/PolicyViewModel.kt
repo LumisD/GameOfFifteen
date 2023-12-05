@@ -1,9 +1,9 @@
-package com.lumisdinos.gameoffifteen.ui.settings
+package com.lumisdinos.gameoffifteen.ui.policy
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class SettingsViewModel @Inject constructor(
+class PolicyViewModel @Inject constructor(
 ) : ViewModel() { }

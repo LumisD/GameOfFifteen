@@ -7,7 +7,7 @@
 
     <!--    Menu-->
     <string name="menu_puzzle">Puzzle</string>
-    <string name="menu_settings">Settings</string>
+    <string name="menu_privacy_policy">Privacy Policy</string>
     <string name="menu_results">Results</string>
 
     <!--    Dialog-->
@@ -15,6 +15,19 @@
     <string name="finish">Finish</string>
     <string name="congratulations_you_solved_it">Congratulations! You solved it!</string>
     <string name="sorry_unsolvable">Sorry, this puzzle impossible to solve :(</string>
+    
+    <!-- Privacy Policy -->
+    <string name="privicy_title">The Privacy Policy of "GameOfFifteen"</string>
+    <string name="privicy_collect">What information collect the app</string>
+    <string name="privicy_collect_text">The app "GameOfFifteen" doesn\'t collect any information about user, or his location, it doesn\'t collect server or HTTP logs of any kind. This application doesn\'t require any permissions like internet, bluetooth, etc.
+The app doesn\'t collect any persistent identifiers (like the Google ID).</string>
+    <string name="privicy_use">How the app uses the information</string>
+    <string name="privicy_use_text">As the app doesn\'t collect any information - it doesn\'t use it any way</string>
+    <string name="privicy_share">What information share the app</string>
+    <string name="privicy_share_text">As the app doesn\'t collect any information - it doesn\'t share it any way</string>
+    <string name="privicy_doing">What the app doing</string>
+    <string name="privicy_doing_text">The application shows 15 numbered tiles and one empty space. You can move tiles one by one onto an empty space and thus try to line up tiles from 1 to 15. If you succeed, the time spent on this will be saved which you can see in the Results section. The app doesn\'t do anything else</string>
+    <string name="privacy_policy_link">Link to <a href="https://sites.google.com/view/gameoffifteen/home">The Privacy Policy</a></string>
 
     <string name="ok">OK</string>
     <string name="you_didnot_solve_yet">You did not solve any puzzle yet</string>

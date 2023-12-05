@@ -5,7 +5,7 @@
 
     <!--    Menu-->
     <string name="menu_puzzle">Пятнашки</string>
-    <string name="menu_settings">Настройки</string>
+    <string name="menu_privacy_policy">Политика конфиденциальности</string>
     <string name="menu_results">Результаты</string>
 
     <!--    Dialog-->
@@ -13,6 +13,18 @@
     <string name="finish">Финиш</string>
     <string name="congratulations_you_solved_it">Поздравляем! Вы решили это!</string>
     <string name="sorry_unsolvable">Жаль, но эту головоломку невозможно решить :(</string>
+
+    <string name="privicy_title">Политика конфиденциальности приложения «GameOfFifteen»</string>
+    <string name="privicy_collect">Какую информацию собирает приложение</string>
+    <string name="privicy_collect_text">Приложение «GameOfFifteen» не собирает никакой информации о пользователе или его местонахождении, а также не собирает какие-либо журналы сервера или HTTP. Это приложение не требует каких-либо разрешений, таких как Интернет, Bluetooth и т.д.
+Приложение не собирает постоянные идентификаторы (например, идентификатор Google).</string>
+    <string name="privicy_use">Как приложение использует информацию</string>
+    <string name="privicy_use_text">Поскольку приложение не собирает никакой информации, оно никак ее не использует</string>
+    <string name="privicy_share">Какой информацией делится приложение</string>
+    <string name="privicy_share_text">Поскольку приложение не собирает никакой информации, оно никоим образом не передает ее</string>
+    <string name="privicy_doing">Что делает приложение</string>
+    <string name="privicy_doing_text">Приложение показывает 15 пронумерованных плиток и одно пустое место. Вы можете передвигать плитки одну за другой на пустое место и таким образом пытаться выстроить плитки от 1 до 15. Если вам это удастся, затраченное на это время будет сохранено, что вы сможете увидеть в разделе «Результаты». Приложение больше ничего не делает</string>
+    <string name="privacy_policy_link">Ссылка на <a href="https://sites.google.com/view/gameoffifteen/home">Политику конфиденциальности</a></string>
 
     <string name="you_didnot_solve_yet">Вы еще не решили ни одной пятнашки</string>
     <string name="ok">OK</string>
