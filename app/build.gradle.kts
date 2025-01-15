@@ -12,7 +12,7 @@ android {
     defaultConfig {
         applicationId = "com.lumisdinos.gameoffifteen"
         minSdk = 24
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 5
         versionName = "1.4"
 
